@@ -3,20 +3,39 @@
     * Copyright 2013-2020 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
     */
-    (function($) {
+(function ($) {
     "use strict";
 
     // Add active state to sidbar nav links
     var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-        $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-            if (this.href === path) {
-                $(this).addClass("active");
-            }
-        });
+    $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+        if (this.href === path) {
+            $(this).addClass("active");
+        }
+    });
 
     // Toggle the side navigation
-    $("#sidebarToggle").on("click", function(e) {
+    $("#sidebarToggle").on("click", function (e) {
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
+
 })(jQuery);
+
+let iframeElement = document.getElementById("play").firstElementChild;
+let element = document.querySelectorAll("#video");
+
+element.forEach(el => {
+    el.addEventListener("click", (e) => {
+        e.preventDefault();
+        let modifiedHref = el.getAttribute("href").replace("watch?v=", "embed/");
+        iframeElement.setAttribute("src", modifiedHref);
+    })
+})
+
+document.querySelectorAll("#advice").forEach(el => {
+    el.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        iframeElement.setAttribute("src", el.getAttribute("value"));
+    })
+})

@@ -22,7 +22,7 @@ public class SongResource {
 
     @PostMapping("/add")
     public ResponseEntity<Song> addSong() {
-        String api = "https://getvideo.p.rapidapi.com/?rapidapi-key=e074a51343msh7118a0a29cea5dcp1906bdjsnd2a1bd495bab&url=https://www.youtube.com/watch?v=Z3w5gVM_4y8";
+        String api = "https://getvideo.p.rapidapi.com/?rapidapi-key=e074a51343msh7118a0a29cea5dcp1906bdjsnd2a1bd495bab&url=https://www.youtube.com/watch?v=cU3fUA1bsIk";
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<SongDto> forEntity = restTemplate.getForEntity(api, SongDto.class);
@@ -37,7 +37,6 @@ public class SongResource {
         return song.map(s -> new ResponseEntity<>(s, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 
     @GetMapping("/all")
     public ResponseEntity<List<Song>> getAllSongs(Pageable pageable) {

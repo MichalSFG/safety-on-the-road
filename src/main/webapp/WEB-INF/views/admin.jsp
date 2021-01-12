@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="ara" tagdir="/WEB-INF/tags" %>
+<%@ taglib tagdir="/WEB-INF/tags/util" prefix="util" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +16,7 @@
           crossorigin="anonymous"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -172,73 +175,71 @@
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <%--                                <i class="fas fa-chart-area mr-1"></i>--%>
-                                Add new road advice - input url address:
+<%--                                <i class="fas fa-chart-area mr-1"></i>--%>
+                                Add new video - input URL address:
                             </div>
                             <div class="card-body">
-                                <form action="/admin/addAdvice" method="post">
+                                <form action="/admin/addSong" method="post">
                                     <input type="url" name="url">
                                     <input type="submit" value="Save">
                                 </form>
-                                <%--                                <canvas id="myAreaChart" width="100%" height="40"></canvas>--%>
+<%--                                <canvas id="myAreaChart" width="100%" height="40"></canvas>--%>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <%--                                <i class="fas fa-chart-bar mr-1"></i>--%>
-                                Video to be played
+<%--                                <i class="fas fa-chart-bar mr-1"></i>--%>
+                                Here you'll watch your videos
                             </div>
                             <div class="card-body" id="play" style="height: 200px">
-                                <iframe height="160" width="450" frameborder="0" allowfullscreen></iframe>
-                                <%--                                <canvas id="myBarChart" width="100%" height="40"></canvas>--%>
+                                <iframe width='450' height='160' frameborder="0" allowfullscreen></iframe>
+<%--                                <canvas id="myBarChart" width="100%" height="40"></canvas>--%>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>
+<%--                        <i class="fas fa-table mr-1"></i>--%>
                         Videos
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            <util:pagination thispage="${songs}"/>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Title</th>
                                     <th>Uploader</th>
-                                    <th>Video</th>
-                                    <th>Upload date</th>
-                                    <th>Description</th>
+                                    <th>Title</th>
+                                    <th>URL</th>
+                                    <th>Views</th>
+                                    <th>Added</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Title</th>
                                     <th>Uploader</th>
-                                    <th>Video</th>
-                                    <th>Upload date</th>
-                                    <th>Description</th>
+                                    <th>Title</th>
+                                    <th>URL</th>
+                                    <th>Views</th>
+                                    <th>Added</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <c:forEach items="${advices}" var="item">
+                                <c:forEach items="${songs.content}" var="item">
                                     <tr>
                                         <td>${item.id}</td>
-                                        <td>${item.title}</td>
                                         <td>${item.uploader}</td>
+                                        <td>${item.title}</td>
                                         <td>
-                                            <button id="advice" value="${item.url}"
-                                                    style="color: white; background-color: green">
-                                                Play
-                                            </button>
+                                            <a href="${item.url}" id="video">Play</a>
                                         </td>
-                                        <td>${item.uploadDate}</td>
-                                        <td>${item.description}</td>
+                                        <td>${item.viewsNumber}</td>
+                                        <td>${item.created}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -262,7 +263,7 @@
         </footer>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+<%--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="<c:url value="/resources/dist/js/scripts.js"/> "></script>

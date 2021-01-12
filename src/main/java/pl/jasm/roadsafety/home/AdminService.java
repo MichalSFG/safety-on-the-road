@@ -10,4 +10,6 @@ public interface AdminService {
 
     Page<Song> findAllSongs(Pageable pageable);
 
+    void add(String url);
+
 }
