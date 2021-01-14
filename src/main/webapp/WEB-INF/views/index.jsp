@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
 </head>
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed" style="background-position: bottom;background-image: url(<c:url value="/resources/dist/assets/img/desert_road.jpg"/>);background-size: cover">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">Start Bootstrap</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
@@ -126,9 +126,9 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Dashboard</h1>
+                <h1 class="mt-4" style="color: white">Road Safety</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Today's date: ${date}</li>
                 </ol>
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
@@ -213,6 +213,7 @@
                                     <th>Video</th>
                                     <th>Upload date</th>
                                     <th>Description</th>
+                                    <th>Comment</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -223,6 +224,7 @@
                                     <th>Video</th>
                                     <th>Upload date</th>
                                     <th>Description</th>
+                                    <th>Comment</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -232,13 +234,17 @@
                                         <td>${item.title}</td>
                                         <td>${item.uploader}</td>
                                         <td>
-                                            <button id="advice" value="${item.url}"
-                                                    style="color: white; background-color: green">
+                                            <button class="btn btn-success" id="advice" value="${item.url}">
                                                 Play
                                             </button>
                                         </td>
                                         <td>${item.uploadDate}</td>
                                         <td>${item.description}</td>
+                                        <td><a class="btn btn-warning" href="/comment/add/${item.id}">Dodaj
+                                            komentarz</a>
+                                            <div class="dropdown-divider"></div>
+                                        <a class="btn btn-primary" href="/comment/all/${item.id}">Czytaj komentarze</a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

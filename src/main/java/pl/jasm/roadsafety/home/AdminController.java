@@ -7,11 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.jasm.roadsafety.advice.RoadAdvice;
 import pl.jasm.roadsafety.advice.RoadAdviceService;
 import pl.jasm.roadsafety.song.Song;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,13 +27,6 @@ public class AdminController {
         String adjusted = url.replace("watch?v=", "embed/");
         roadAdviceService.add(adjusted);
         return "redirect:/admin/advices";
-    }
-
-    @RequestMapping("/advices")
-    public String allAdvices(Model model) {
-        List<RoadAdvice> all = roadAdviceService.findAll();
-        model.addAttribute("advices", all);
-        return "index";
     }
 
     @RequestMapping("/")
