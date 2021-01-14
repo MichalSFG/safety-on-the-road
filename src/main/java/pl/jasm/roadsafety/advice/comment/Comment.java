@@ -16,13 +16,13 @@ public class Comment {
     private Long id;
     private String nickname;
     private String opinion;
-    private LocalDateTime created;
+    private String created;
 
     @ManyToOne
     private RoadAdvice roadAdvice;
 
     @PrePersist
     public void prePersist() {
-        created = LocalDateTime.now();
+        created = LocalDateTime.now().toString();
     }
 }

@@ -26,7 +26,7 @@ public class AdminController {
     public String addRoadAdvice(@RequestParam String url) {
         String adjusted = url.replace("watch?v=", "embed/");
         roadAdviceService.add(adjusted);
-        return "redirect:/admin/advices";
+        return "redirect:/roadAdvice/all";
     }
 
     @RequestMapping("/")

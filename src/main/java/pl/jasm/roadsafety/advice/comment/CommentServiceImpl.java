@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import pl.jasm.roadsafety.advice.RoadAdvice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CommentServiceImpl implements CommentService {
@@ -21,6 +22,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findRoadAdviceComments(RoadAdvice roadAdvice) {
-        return commentRepository.findAllByRoadAdvice(roadAdvice);
+        List<Comment> comments = commentRepository.findAllByRoadAdvice(roadAdvice);
+        return comments.stream().peek(comment -> {
+            String c = comment.getCreated();
+            comment.setCreated(c.substring(8, 10) + "/" + c.substring(5, 7) + "/" + c.substring(0, 4) + " " + c.substring(11, 16));
+        }).collect(Collectors.toList());
     }
 }

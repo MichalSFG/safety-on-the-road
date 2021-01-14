@@ -26,6 +26,7 @@
                     <th>Id</th>
                     <th>Nickname</th>
                     <th>Opinion</th>
+                    <th>Added</th>
                     </thead>
                     <tbody>
                     <c:forEach items="${comments}" var="item">
@@ -33,6 +34,7 @@
                             <td>${item.id}</td>
                             <td>${item.nickname}</td>
                             <td>${item.opinion}</td>
+                            <td>${item.created}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
