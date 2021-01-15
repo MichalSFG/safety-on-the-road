@@ -237,13 +237,18 @@
                                             <button class="btn btn-success" id="advice" value="${item.url}">
                                                 Play
                                             </button>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="btn btn-primary" href="/admin/editAdvice?id=${item.id}">Edit</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="btn btn-danger" href="/admin/deleteAdvice/${item.id}">Delete</a>
                                         </td>
                                         <td>${item.uploadDate}</td>
                                         <td>${item.description}</td>
                                         <td><a class="btn btn-warning" href="/comment/add/${item.id}">Dodaj
                                             komentarz</a>
                                             <div class="dropdown-divider"></div>
-                                        <a class="btn btn-primary" href="/comment/all/${item.id}">Czytaj komentarze</a>
+                                            <a class="btn btn-primary" href="/comment/all/${item.id}">Czytaj
+                                                komentarze</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

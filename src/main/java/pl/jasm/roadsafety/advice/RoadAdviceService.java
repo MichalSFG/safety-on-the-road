@@ -13,4 +13,8 @@ public interface RoadAdviceService {
     Optional<RoadAdvice> findRoadAdviceById(Long id);
 
     void add(String url);
+
+    void update(RoadAdvice advice);
+
+    void delete(RoadAdvice advice);
 }

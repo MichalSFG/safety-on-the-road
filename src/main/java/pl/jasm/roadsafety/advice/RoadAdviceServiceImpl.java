@@ -51,6 +51,16 @@ public class RoadAdviceServiceImpl implements RoadAdviceService {
         }
     }
 
+    @Override
+    public void update(RoadAdvice advice) {
+        roadAdviceRepository.save(advice);
+    }
+
+    @Override
+    public void delete(RoadAdvice advice) {
+        roadAdviceRepository.delete(advice);
+    }
+
     private String changeUploadDatePattern(String uploadDate) {
         return uploadDate.substring(6, 8) + "/" + uploadDate.substring(4, 6) + "/" + uploadDate.substring(0, 4);
     }

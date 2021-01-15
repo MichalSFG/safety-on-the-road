@@ -28,4 +28,14 @@ public class CommentServiceImpl implements CommentService {
             comment.setCreated(c.substring(8, 10) + "/" + c.substring(5, 7) + "/" + c.substring(0, 4) + " " + c.substring(11, 16));
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Comment> getOriginalRoadAdviceComments(RoadAdvice advice) {
+        return commentRepository.findAllByRoadAdvice(advice);
+    }
+
+    @Override
+    public void delete(Comment comment) {
+        commentRepository.delete(comment);
+    }
 }

@@ -11,4 +11,8 @@ public interface CommentService {
     void add(Comment comment);
 
     List<Comment> findRoadAdviceComments(RoadAdvice roadAdvice);
+
+    List<Comment> getOriginalRoadAdviceComments(RoadAdvice advice);
+
+    void  delete(Comment comment);
 }

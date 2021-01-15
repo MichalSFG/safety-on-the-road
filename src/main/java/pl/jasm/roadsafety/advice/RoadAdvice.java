@@ -1,7 +1,6 @@
 package pl.jasm.roadsafety.advice;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,9 +19,15 @@ public class RoadAdvice {
     private String description;
     private String uploadDate;
     private LocalDateTime created;
+    private LocalDateTime updated;
 
     @PrePersist
     public void prePersist() {
         created = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updated = LocalDateTime.now();
     }
 }
