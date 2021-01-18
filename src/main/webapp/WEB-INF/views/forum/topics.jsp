@@ -15,7 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
 </head>
-<body class="sb-nav-fixed" style="background-color: grey">
+<body class="sb-nav-fixed" style="background-image: url(<c:url
+        value="/resources/dist/assets/img/mountain_road.jpg"/>); background-position: center; background-size: cover">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Hello User</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
@@ -50,9 +51,9 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="/forum/">
+                    <a class="nav-link" href="/roadAdvice/all">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        FORUM
+                        Home page
                     </a>
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
@@ -126,134 +127,35 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4" style="color: white">Road Safety</h1>
+                <h1 class="mt-4" style="color: white">Forum</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Today's date: ${date}</li>
+                    <li class="breadcrumb-item active">Tutaj możesz zadawać wszelkie pytania organizacyjne związane z
+                        forum.
+                    </li>
                 </ol>
                 <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Primary Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Warning Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Success Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Danger Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header" align="center" style="background-color: #6c757d; color: white">
+                                <a style="color: #ffffff" href="/forum/addTopic/${subjectId}">Dodaj nowy temat do
+                                    Forum</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xl-3"></div>
                     <div class="col-xl-6">
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <%--                                <i class="fas fa-chart-area mr-1"></i>--%>
-                                Add new road advice - input url address:
+                            <div class="card-header" style="text-align: center; font-weight: bold; font-style: italic">
+                                Topics
                             </div>
-                            <div class="card-body">
-                                <form action="/admin/addAdvice" method="post">
-                                    <input type="url" name="url">
-                                    <input type="submit" value="Save">
-                                </form>
-                                <%--                                <canvas id="myAreaChart" width="100%" height="40"></canvas>--%>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <%--                                <i class="fas fa-chart-bar mr-1"></i>--%>
-                                Video to be played
-                            </div>
-                            <div class="card-body" id="play" style="height: 200px">
-                                <iframe height="160" width="450" frameborder="0" allowfullscreen></iframe>
-                                <%--                                <canvas id="myBarChart" width="100%" height="40"></canvas>--%>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>
-                        Videos
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Uploader</th>
-                                    <th>Video</th>
-                                    <th>Upload date</th>
-                                    <th>Description</th>
-                                    <th>Comment</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Uploader</th>
-                                    <th>Video</th>
-                                    <th>Upload date</th>
-                                    <th>Description</th>
-                                    <th>Comment</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-                                <c:forEach items="${advices}" var="item">
-                                    <tr>
-                                        <td>${item.id}</td>
-                                        <td>${item.title}</td>
-                                        <td>${item.uploader}</td>
-                                        <td>
-                                            <button class="btn btn-success" id="advice" value="${item.url}">
-                                                Play
-                                            </button>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="btn btn-primary" href="/admin/editAdvice?id=${item.id}">Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="btn btn-danger" href="/admin/deleteAdvice/${item.id}">Delete</a>
-                                        </td>
-                                        <td>${item.uploadDate}</td>
-                                        <td>${item.description}</td>
-                                        <td><a class="btn btn-warning" href="/comment/add/${item.id}">Dodaj
-                                            komentarz</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="btn btn-primary" href="/comment/all/${item.id}">Czytaj
-                                                komentarze</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                            <c:forEach items="${topics}" var="item">
+                                <div class="card-body" style="background-color: dimgrey; color: white">
+                                        ${item.title}
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

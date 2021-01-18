@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.jasm.roadsafety.advice.RoadAdvice;
 import pl.jasm.roadsafety.advice.RoadAdviceService;
 import pl.jasm.roadsafety.advice.comment.CommentService;
+import pl.jasm.roadsafety.forum.subject.ForumSubject;
+import pl.jasm.roadsafety.forum.subject.ForumSubjectService;
 import pl.jasm.roadsafety.song.Song;
 
 import java.util.Optional;
@@ -19,11 +21,13 @@ public class AdminController {
     private final AdminService adminService;
     private final RoadAdviceService roadAdviceService;
     private final CommentService commentService;
+    private final ForumSubjectService forumSubjectService;
 
-    public AdminController(AdminService adminService, RoadAdviceService roadAdviceService, CommentService commentService) {
+    public AdminController(AdminService adminService, RoadAdviceService roadAdviceService, CommentService commentService, ForumSubjectService forumSubjectService) {
         this.adminService = adminService;
         this.roadAdviceService = roadAdviceService;
         this.commentService = commentService;
+        this.forumSubjectService = forumSubjectService;
     }
 
     @PostMapping("/addAdvice")
@@ -68,5 +72,13 @@ public class AdminController {
         String modified = url.replace("watch?v=", "embed/");
         adminService.add(modified);
         return "redirect:/admin/";
+    }
+
+    @PostMapping("/addSubject")
+    public String addForumSubject(@RequestParam String subject) {
+        ForumSubject forumSubject = new ForumSubject();
+        forumSubject.setName(subject);
+        forumSubjectService.add(forumSubject);
+        return "redirect:/forum/";
     }
 }
