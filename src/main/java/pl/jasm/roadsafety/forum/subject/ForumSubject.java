@@ -3,9 +3,10 @@ package pl.jasm.roadsafety.forum.subject;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.util.Locale;
 
 @Entity
 @Data
@@ -20,6 +21,6 @@ public class ForumSubject {
 
     @PrePersist
     public void prePersist() {
-        created = LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT));
+        created = LocalDate.now().atTime(LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm", Locale.GERMANY)))).toString().replace("T", " ");
     }
 }

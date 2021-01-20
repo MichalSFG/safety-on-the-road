@@ -16,7 +16,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed" style="background-image: url(<c:url
-        value="/resources/dist/assets/img/mountain_road.jpg"/>); background-position: center; background-size: cover">
+        value="/resources/dist/assets/img/mountain_road.jpg"/>); background-position: bottom; background-size: cover">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Hello User</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
@@ -127,20 +127,32 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4" style="color: white">Forum</h1>
+                <div class="row">
+                    <div class="col-xl-3">
+                        <a href="/forum/" class="text-decoration-none">
+                            <div class="card mb-4">
+                                <div class="card-header btn"
+                                     style="background-color: darkorange; color: white; alignment: center">Back to Forum
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Tutaj możesz zadawać wszelkie pytania organizacyjne związane z
-                        forum.
+                    <li class="breadcrumb-item active">Tutaj możesz zadawać wszelkie pytania związane z<span
+                            style="color: darkorange">&nbsp${subject.name}</span>
                     </li>
                 </ol>
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card mb-4">
-                            <div class="card-header" align="center" style="background-color: #6c757d; color: white">
-                                <a style="color: #ffffff" href="/forum/addTopic/${subjectId}">Dodaj nowy temat do
-                                    Forum</a>
+                        <a href="/forum/addTopic/${subject.id}" class="text-decoration-none">
+                            <div class="card mb-4">
+                                <div class="card-header btn"
+                                     style="background-color: #6c757d; color: white; alignment: center">
+                                    Dodaj nowy temat do działu ${subject.name}
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
@@ -150,11 +162,15 @@
                             <div class="card-header" style="text-align: center; font-weight: bold; font-style: italic">
                                 Topics
                             </div>
-                            <c:forEach items="${topics}" var="item">
-                                <div class="card-body" style="background-color: dimgrey; color: white">
-                                        ${item.title}
+                            <c:forEach items="${topics}" var="item" varStatus="status">
+                                <a href="/forum/topicDetails/${item.id}" class="text-decoration-none">
+                                    <div class="card-body" style="background-color: dimgrey; color: white">
+                                            ${item.title}
+                                    </div>
+                                </a>
+                                <c:if test="${!status.last}">
                                     <div class="dropdown-divider"></div>
-                                </div>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div>

@@ -1,29 +1,30 @@
-package pl.jasm.roadsafety.forum;
+package pl.jasm.roadsafety.forum.topicComment;
 
 import lombok.Data;
-import pl.jasm.roadsafety.forum.subject.ForumSubject;
+import pl.jasm.roadsafety.forum.ForumTopic;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Locale;
 
 @Entity
 @Data
-@Table(name = "forumTopics")
-public class ForumTopic {
+@Table(name = "forumTopicComments")
+public class TopicComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String author;
-    private String title;
     private String content;
     private String created;
 
     @ManyToOne
-    private ForumSubject forumSubject;
+    private ForumTopic forumTopic;
 
     @PrePersist
     public void prePersist() {

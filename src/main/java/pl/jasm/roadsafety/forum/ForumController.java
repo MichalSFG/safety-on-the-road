@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.jasm.roadsafety.forum.subject.ForumSubject;
 import pl.jasm.roadsafety.forum.subject.ForumSubjectService;
+import pl.jasm.roadsafety.forum.topicComment.TopicComment;
+import pl.jasm.roadsafety.forum.topicComment.TopicCommentService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,10 +20,12 @@ public class ForumController {
 
     private final ForumService forumService;
     private final ForumSubjectService forumSubjectService;
+    private final TopicCommentService topicCommentService;
 
-    public ForumController(ForumService forumService, ForumSubjectService forumSubjectService) {
+    public ForumController(ForumService forumService, ForumSubjectService forumSubjectService, TopicCommentService topicCommentService) {
         this.forumService = forumService;
         this.forumSubjectService = forumSubjectService;
+        this.topicCommentService = topicCommentService;
     }
 
     @RequestMapping("/")
@@ -32,11 +36,11 @@ public class ForumController {
         return "forum";
     }
 
-    @RequestMapping("/all")
-    public String getForumTopics(@RequestParam Long id, Model model) {
+    @RequestMapping("/subjectTopics")
+    public String getForumSubjectTopics(@RequestParam Long id, Model model) {
         Optional<ForumSubject> byId = forumSubjectService.findById(id);
         byId.ifPresent(subject -> {
-            model.addAttribute("subjectId", subject.getId());
+            model.addAttribute("subject", subject);
             model.addAttribute("topics", forumService.findAllByForumSubject(subject));
         });
         return "forum/topics";
@@ -54,6 +58,28 @@ public class ForumController {
         Optional<ForumSubject> byId = forumSubjectService.findById(subjectId);
         byId.ifPresent(forumTopic::setForumSubject);
         forumService.add(forumTopic);
+        return "redirect:/forum/";
+    }
+
+    @RequestMapping("/topicDetails/{topicId}")
+    public String getTopicDetails(@PathVariable Long topicId, Model model) {
+        Optional<ForumTopic> topicById = forumService.findTopicById(topicId);
+        topicById.ifPresent(forumTopic -> {
+            model.addAttribute("topic", forumTopic);
+            model.addAttribute("comments", topicCommentService.findTopicCommentsByForumTopic(forumTopic));
+        });
+        model.addAttribute("topicComment", new TopicComment());
+        return "forum/topicDetails";
+    }
+
+    @PostMapping("/addTopicComment")
+    public String addTopicComment(TopicComment topicComment, @RequestParam Long topicId) {
+        Optional<ForumTopic> topicById = forumService.findTopicById(topicId);
+        topicById.ifPresent(forumTopic -> {
+            topicComment.setAuthor("user");
+            topicComment.setForumTopic(forumTopic);
+            topicCommentService.add(topicComment);
+        });
         return "redirect:/forum/";
     }
 }

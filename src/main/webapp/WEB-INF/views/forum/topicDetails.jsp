@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed" style="background-image: url(<c:url
-        value="/resources/dist/assets/img/mountain_road.jpg"/>); background-position: center; background-size: cover">
+        value="/resources/dist/assets/img/mountain_road.jpg"/>); background-position: bottom; background-size: cover">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Hello User</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
@@ -127,36 +128,77 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4" style="color: white">FORUM</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Today's date: ${date}</li>
-                </ol>
-                <c:forEach items="${subjects}" var="item">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <a href="/forum/subjectTopics?id=${item.id}" class="text-decoration-none">
-                                <div class="card mb-4">
-                                    <div class="card-header btn"
-                                         style="background-color: #6c757d; color: white; alignment: center">${item.name}
-                                    </div>
+                <div class="row">
+                    <div class="col-xl-3">
+                        <a href="/forum/" class="text-decoration-none">
+                            <div class="card mb-4">
+                                <div class="card-header btn"
+                                     style="background-color: darkorange; color: white; alignment: center">Back to Forum
                                 </div>
-                            </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <%--                <ol class="breadcrumb mb-4">--%>
+                <%--                    <li class="breadcrumb-item active">Tutaj możesz zadawać wszelkie pytania związane z<span--%>
+                <%--                            style="color: darkorange">&nbsp${subject.name}</span>--%>
+                <%--                    </li>--%>
+                <%--                </ol>--%>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header"
+                                 style="background-color: #6c757d; color: white; text-align: center">${topic.title}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2"></div>
+                    <div class="col-xl-8">
+                        <div class="card mb-4">
+                            <div class="card-header"
+                                 style="text-align: right;font-weight: bold; font-style: italic">Author: ${topic.author}
+                            </div>
+                            <div class="card-header"
+                                 style="text-align: right;font-weight: bold; font-style: italic">${topic.created}
+                            </div>
+                            <div class="card-body"
+                                 style="background-color: dimgrey; color: white">${topic.content}</div>
+                        </div>
+                    </div>
+                </div>
+                <c:forEach items="${comments}" var="item">
+                    <div class="row">
+                        <div class="col-xl-3"></div>
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    Author: ${item.author}
+                                </div>
+                                <div class="card-header" style="background-color: grey; color: white">
+                                        ${item.created}
+                                </div>
+                                <div class="card-body">
+                                        ${item.content}</div>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
                 <div class="row">
-                    <div class="col-xl-6"></div>
+                    <div class="col-xl-3"></div>
                     <div class="col-xl-6">
                         <div class="card mb-4">
-                            <div class="card-header" style="text-align: center; font-weight: bold; font-style: italic">
-                                Add new subject to this Forum:
+                            <div class="card-header"
+                                 style="font-weight: bold; font-style: italic">Reply
                             </div>
-                            <div class="card-body" style="background-color: dimgrey">
-                                <form action="/admin/addSubject" method="post">
-                                    <input type="text" name="subject">
+                            <div class="card-body" style="background-color: darkslategray">
+                                <form:form action="/forum/addTopicComment" method="post"
+                                           modelAttribute="topicComment">
+                                    <form:textarea path="content"/>
                                     <div class="dropdown-divider"></div>
-                                    <button class="btn btn-success" type="submit">Add subject</button>
-                                </form>
+                                    <input type="hidden" name="topicId" value="${topic.id}">
+                                    <input class="btn btn-success" type="submit" value="Send">
+                                </form:form>
                             </div>
                         </div>
                     </div>
